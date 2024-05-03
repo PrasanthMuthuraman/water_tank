@@ -1,0 +1,13 @@
+.box{
+    height: 200px;
+    width: 200px;
+    scale: .05;
+    rotate: 0deg;
+    transition: all 1s;
+    background-color: blueviolet;
+}
+.box:hover{
+    scale: 1;
+    rotate: 360deg;
+    background-color:black;
+}

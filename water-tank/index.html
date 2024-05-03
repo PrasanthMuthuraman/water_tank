@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Tank</title>
+<style>
+
+
+
+
+.tank{
+    height: 400px;
+    width: 300px;
+    background-color: white;
+    border: solid 1px black;
+    margin-top: 47px;
+    margin-left: 90px;
+  position: relative;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+.leftbox{
+  width: 100%;
+  height: 100%;
+  background-color: lightblue; 
+  position: absolute;
+  bottom: 0;
+  
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.tap_button{
+    height: 10px;
+    width: 40px;
+    background-color: red;
+  margin-bottom:9px;
+  margin-left: 125px;
+   
+
+}
+.tap_button:hover{
+cursor: pointer;
+}
+.pipe{
+    height: 10px;
+    width: 150px;
+    background-color: brown;
+  
+
+}
+.tap{
+    height: 40px;
+    width: 15px;
+    background-color: brown;
+    margin-left: 140px;
+    margin-top: -20px;
+   
+}
+.container{
+    display: flex;
+   
+    height: 100vh;
+    width: 100%;
+}
+.rightbox{
+margin-top: 420px;
+height: fit-content;
+width: fit-content;
+}
+.waterflow{
+    height: 170px;
+    background-color: skyblue;
+    width: 10px;
+    margin-left: 143px;
+    visibility: hidden;
+    
+}
+
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="tank">
+      <div id="waterLevel" class="leftbox">
+    
+      </div>
+    </div>
+    
+    
+    <div class="rightbox">
+        <div class="right_top">
+            <div id="tapButton"  class="tap_button">
+            </div>
+        </div>
+        <div class="right_bottom">
+            <div class="pipe">
+            </div>
+            <div id="tap" class="tap">
+        
+            </div>
+            <div id="waterFlowing" class="waterflow">
+    
+            </div>
+        </div>
+        
+    </div>
+        </div>
+
+<script>
+
+
+var intervalId;
+var isFlowing = false;
+var pipeState = 'closed'; 
+document.getElementById('tapButton').addEventListener('click', function() {
+  if (pipeState === 'closed') {
+    document.getElementById('waterFlowing').style.visibility= "visible";
+    startFlow();
+  } else {
+    stopFlow();
+  }
+});
+
+function startFlow() {
+  
+  intervalId = setInterval(decreaseWaterLevel, 50);
+  isFlowing = true;
+  document.getElementById('tapButton').style.backgroundColor = 'green';
+  
+  pipeState = 'open';
+}
+
+function stopFlow() {
+  document.getElementById('waterFlowing').style.visibility= "hidden";
+  
+  clearInterval(intervalId);
+  isFlowing = false;
+  document.getElementById('tapButton').style.backgroundColor = 'red';
+  
+  pipeState = 'closed';
+}
+
+function decreaseWaterLevel() {
+  // Get the water element
+  var water = document.getElementById('waterLevel');
+  
+  // Decrease the height of the water
+  var currentHeight = parseFloat(water.style.height) || 100;
+  var newHeight = Math.max(currentHeight - 1, 0); // Decrease by 1 pixel
+  water.style.height = newHeight + '%'; // Update the height
+  
+  // If water level is very low, stop the flow
+  if (newHeight === 0) {
+    stopFlow();
+  }
+}
+
+
+</script>
+</body>
+</html>
